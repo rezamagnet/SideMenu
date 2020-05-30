@@ -23,6 +23,8 @@ open class SideMenuPresentationStyle: InitializableClass {
     open var onTopShadowColor: UIColor = .black
     /// The radius of the shadow applied to the top most view.
     open var onTopShadowRadius: CGFloat = 5
+    /// The radius of the applied to the top most view.
+    open var onTopCornerRadius: CGFloat = 5
     /// The opacity of the shadow applied to the top most view.
     open var onTopShadowOpacity: Float = 0
     /// The offset of the shadow applied to the top most view.
@@ -73,6 +75,17 @@ public extension SideMenuPresentationStyle {
             $0.presentingTranslateFactor = 1
         }
     }
+    
+    /// The existing view slides out while the menu slides in.
+    static var viewSlideOutWithZoomOutMenuIn: SideMenuPresentationStyle {
+        return SideMenuPresentationStyle {
+            $0.menuTranslateFactor = -1
+            $0.presentingTranslateFactor = 1
+            $0.presentingScaleFactor = 0.8
+        }
+    }
+    
+    
     /// The menu dissolves in over the existing view.
     static var menuDissolveIn: SideMenuPresentationStyle {
         return SideMenuPresentationStyle {

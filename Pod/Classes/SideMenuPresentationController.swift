@@ -241,6 +241,7 @@ private extension SideMenuPresentationController {
         view.layer.shadowOffset = config.presentationStyle.onTopShadowOffset
         clipsToBounds = clipsToBounds ?? view.clipsToBounds
         view.clipsToBounds = false
+        view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
     }
 
     func addParallax(to view: UIView) {
@@ -276,5 +277,6 @@ private extension SideMenuPresentationController {
         view.layer.shadowOpacity = 0
         view.clipsToBounds = clipsToBounds ?? true
         clipsToBounds = false
+        view.layer.cornerRadius = .zero
     }
 }
