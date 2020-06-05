@@ -30,7 +30,6 @@ internal final class SideMenuPresentationController {
     private let config: PresentationModel
     private unowned var containerView: UIView
     private var interactivePopGestureRecognizerEnabled: Bool?
-    private var clipsToBounds: Bool?
     private let leftSide: Bool
     private unowned var presentedViewController: UIViewController
     private unowned var presentingViewController: UIViewController
@@ -235,13 +234,15 @@ private extension SideMenuPresentationController {
     }
 
     func addShadow(to view: UIView) {
+        view.findViewController()?.children.forEach { $0.view.layer.masksToBounds = true;$0.view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius }
+        view.layer.masksToBounds = false
+        view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
+        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: config.presentationStyle.onTopCornerRadius).cgPath
         view.layer.shadowColor = config.presentationStyle.onTopShadowColor.cgColor
         view.layer.shadowRadius = config.presentationStyle.onTopShadowRadius
         view.layer.shadowOpacity = config.presentationStyle.onTopShadowOpacity
         view.layer.shadowOffset = config.presentationStyle.onTopShadowOffset
-        clipsToBounds = clipsToBounds ?? view.clipsToBounds
-        view.clipsToBounds = false
-        view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
+        
     }
 
     func addParallax(to view: UIView) {
@@ -272,11 +273,11 @@ private extension SideMenuPresentationController {
     }
 
     func removeStyles(from view: UIView) {
+        view.findViewController()?.children.forEach { $0.view.layer.masksToBounds = false;$0.view.layer.cornerRadius = .zero }
         view.motionEffects.removeAll()
         view.layer.shadowOpacity = 0
         view.layer.shadowOpacity = 0
-        view.clipsToBounds = clipsToBounds ?? true
-        clipsToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = .zero
     }
 }
