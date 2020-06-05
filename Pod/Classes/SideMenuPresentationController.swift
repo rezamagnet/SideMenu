@@ -234,6 +234,11 @@ private extension SideMenuPresentationController {
     }
 
     func addShadow(to view: UIView) {
+        if let tabBarController = view.findViewController() as? UITabBarController {
+            tabBarController.tabBar.layer.masksToBounds = true
+            tabBarController.tabBar.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
+            tabBarController.tabBar.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+        }
         view.findViewController()?.children.forEach { $0.view.layer.masksToBounds = true;$0.view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius }
         view.layer.masksToBounds = false
         view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
@@ -273,6 +278,10 @@ private extension SideMenuPresentationController {
     }
 
     func removeStyles(from view: UIView) {
+        if let tabBarController = view.findViewController() as? UITabBarController {
+            tabBarController.tabBar.layer.masksToBounds = false
+            tabBarController.tabBar.layer.cornerRadius = .zero
+        }
         view.findViewController()?.children.forEach { $0.view.layer.masksToBounds = false;$0.view.layer.cornerRadius = .zero }
         view.motionEffects.removeAll()
         view.layer.shadowOpacity = 0
