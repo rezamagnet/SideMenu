@@ -239,6 +239,8 @@ private extension SideMenuPresentationController {
             tabBarController.tabBar.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
             tabBarController.tabBar.layer.maskedCorners = [.layerMinXMaxYCorner,.layerMaxXMaxYCorner]
         }
+        snapshotView?.layer.masksToBounds = true
+        snapshotView?.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
         view.findViewController()?.children.forEach { $0.view.layer.masksToBounds = true;$0.view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius }
         view.layer.masksToBounds = false
         view.layer.cornerRadius = config.presentationStyle.onTopCornerRadius
